@@ -1,1 +1,1 @@
-{"status": "OK", "action": "getInstitutionId", "institution": {"institutionLabel": "DUT", "institutionCode": 111}}
+{"status": "OK", "action": "getCollegeFacultiesId", "faculties": [{"code": 31, "label": "FACULTY OF ARTS AND DESIGN"}, {"code": 32, "label": "FACULTY OF ACC AND INFORMATICS"}, {"code": 33, "label": "FACULTY OF MANAGEMENT SCIENCES"}, {"code": 34, "label": "FACULTY OF APPLIED SCIENCES"}, {"code": 35, "label": "FACULTY OF ENG & THE BUILT ENV"}, {"code": 36, "label": "FACULTY OF HEALTH SCIENCES"}]}
