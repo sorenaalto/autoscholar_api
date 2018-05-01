@@ -27,6 +27,7 @@ app = Flask("autoscholar-api")
 class myDbPool(dbPool):
 	def makeNewConn(self):
 		c = cx_Oracle.connect("ilm","identity01","PRODI04")
+		print "create new db pool connection"
 		return c
 
 dbpool = myDbPool(3)
@@ -181,13 +182,30 @@ def getCollegeFacultiesId(data):
     else:
         raise RequestParameterError("collegeCode %s is not known" % (code,))
 
+def getFacultyDisciplinesId(data):
+    app.logger.info("getFacultyDisciplnesId"+json.dumps(data))
+    code = data['facultyCode']
+    qs = "select * from GEN.GACDPT where GACFACT=:1"
+    rs = doQuery(qs,(code,))
+#    qs = "select * from GEN.GACDPT where GACFACT='%s'" % (code,)
+#    rs = doQuery(qs)
+    rlist = []
+    for r in rs:
+        app.logger.info("r="+str(r))
+        rr = {'code':r['GACCODE'],'label':r['GACNAME']}
+        rlist.append(rr)
+    rsp = {'faculties':rlist}
+    return rsp
+
+
 
 
 @app.route('/main',methods=['POST'])
 def apiMain():
     non_auth_requests = {
         'getInstitutionId' : getInstitutionId,
-        'getCollegeFacultiesId' : getCollegeFacultiesId
+        'getCollegeFacultiesId' : getCollegeFacultiesId,
+        'getFacultyDisciplinesId' : getFacultyDisciplinesId
     }
 
     auth_requests = {
