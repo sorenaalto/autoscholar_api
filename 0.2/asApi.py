@@ -406,7 +406,7 @@ def apiMain():
     except NoSuchAction as x:
         errmsg = x.value
         return json.dumps({'status':'ERR','msg':errmsg})
-    else:
+    except:
         traceback.print_exc()
         msg = str(sys.exc_info())
         return json.dumps({'status':'ERR','msg':msg})

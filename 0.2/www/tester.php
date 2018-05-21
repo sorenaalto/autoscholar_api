@@ -104,9 +104,15 @@ Password: <input type='password' id='password' name='password' value='aSecret'/>
         <select id='select_action'>
             <option>...</option>
             <option>getInstitutionId</option>
+            <option>getCollegeId</option>
             <option>getCollegeFacultiesId</option>
             <option>getFacultyDisciplinesId</option>
-            <option>getCollegeId</option>
+            <option>getDisciplineProgrammesId</option>
+            <option>getProgrammeStudents</option>
+            <option>getStudentProgrammeRegistrations</option>
+            <option>getStudentFinalCourseResults</option>
+            <option>getAssessmentResults</option>
+            <option>getStudentBioData</option>
         </select>
 </div>    
         <textarea id='jsonreq' name='jsonreq' rows='10' cols='72'>
