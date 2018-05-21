@@ -27,7 +27,7 @@ class asSessions:
         # hack...record last session under known token
         self.session_map["1234567890"] = ssn
         print ssn
-        return ssn.token
+        return ssn
     
     def findSession(self,token):
         if token in self.session_map:

@@ -53,8 +53,10 @@ def login():
         data = request.get_json()
         print data
         print type(data)
-        token = sessions.newSession(data['user'])
-        return "OK logged in as ssn_id=",token
+        ssn = sessions.newSession(data['user'])
+        return json.dumps({"status":"OK","token":ssn.token,\
+                "user":ssn.username,\
+                "created":ssn.created_at})
 
 @app.route('/dumpsessions')
 def dumpSessions():
@@ -149,6 +151,7 @@ def doQuery(qs,plist=None):
 		rlist = []
 		rsp = wrapResponse(curs)
 		app.logger.info("response wrapped")
+		dbpool.freeConn(db)
 		return rsp
 	except:
 	    app.logger.info("caught db exception...")
@@ -197,7 +200,79 @@ def getFacultyDisciplinesId(data):
     rsp = {'faculties':rlist}
     return rsp
 
+def getDisciplineProgrammesId(data):
+    app.logger.info("getDisciplineProgrammesId"+json.dumps(data))
+    code = data['disciplineCode']
+    aYear = '2018'
+    qs = "select * from STUD.IAIQAL where IAIDEPT=:1 and IAICYR=:2"
+    rs = doQuery(qs,(code,aYear))
+#    qs = "select * from GEN.GACDPT where GACFACT='%s'" % (code,)
+#    rs = doQuery(qs)
+    rlist = []
+    for r in rs:
+        app.logger.info("r="+str(r))
+        rr = {'programmeCode':r['IAIQUAL'],'programmeLabel':r['IAIDESC'],
+                'majorCode':'???','majorLabel':'???'
+        }
+        rlist.append(rr)
+    rsp = {'programmes':rlist}
+    return rsp
 
+def getProgrammeStudents(data):
+    app.logger.info("getProgrammeStudents"+json.dumps(data))
+    programmeCode = data['programmeCode']
+    year = data['year']
+    session = data['session']
+    #
+    # map to IAGBC
+    if session == '0':
+        bclist = "('11','21')" # check for ET / PG blocks
+    if session == '1':
+        bclist = "('11','22')"
+    else:
+        bclist = "('11')"
+    
+    qs = """select IAGSTNO,IADSURN,IADNAMES 
+            from STUD.IAGENR, STUD.IADBIO
+            where IAGSTNO=IADSTNO
+            and IAGQUAL=:1
+            and IAGCYR=:2
+            and IAGBC in %s""" % (bclist,)
+    rs = doQuery(qs,(programmeCode,year))
+    rlist = []
+    for r in rs:
+        app.logger.info("r="+str(r))
+        rr = {'studentNumber':r['IAGSTNO'],'majorCode':'???',\
+                'lastName':r['IADSURN'],'firstNames':r['IADNAMES']}
+        rlist.append(rr)
+    rsp = {'students':rlist}
+    return rsp
+    
+def getStudentProgrammeRegistrations(data):
+    app.logger.info("getProgrammeStudents"+json.dumps(data))
+    studentList = data['studentList']
+    #
+    # TODO: will need paged queries for long lists
+    slistS = ",".join([str(x) for x in studentList])
+    qs = """select IAGSTNO,IAGCYR,IAGBC,IAGQUAL from STUD.IAGENR
+            where IAGSTNO in (%s)
+            order by IAGSTNO,IAGCYR,IAGBC""" % slistS
+    rs = doQuery(qs)
+    rlist = []
+    for r in rs:
+        app.logger.info("r="+str(r))
+        bc = r['IAGBC']
+        if bc in ['11','21']:
+            session = 0
+        if bc in ['22']:
+            session = 1
+        else:
+            session = 0
+        rr = {'studentNumber':r['IAGSTNO'],'year':r['IAGCYR'],'session':session,'programmeCode':r['IAGQUAL'],'majorCode':'???'}
+        rlist.append(rr)
+    rsp = {'registrations':rlist}
+    return rsp
+    
 
 
 @app.route('/main',methods=['POST'])
@@ -205,7 +280,10 @@ def apiMain():
     non_auth_requests = {
         'getInstitutionId' : getInstitutionId,
         'getCollegeFacultiesId' : getCollegeFacultiesId,
-        'getFacultyDisciplinesId' : getFacultyDisciplinesId
+        'getFacultyDisciplinesId' : getFacultyDisciplinesId,
+        'getDisciplineProgrammesId': getDisciplineProgrammesId,
+        'getProgrammeStudents':getProgrammeStudents,
+        'getStudentProgrammeRegistrations':getStudentProgrammeRegistrations
     }
 
     auth_requests = {
@@ -214,6 +292,7 @@ def apiMain():
 
     try:
         data = request.get_json()
+        print "/main, data=",data
         action = data['action']
         print "Action=",action
         token = data['token']
