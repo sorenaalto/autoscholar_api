@@ -406,6 +406,9 @@ def apiMain():
     except NoSuchAction as x:
         errmsg = x.value
         return json.dumps({'status':'ERR','msg':errmsg})
+    except KeyError as x:
+        errmsg = "missing property "+x.message
+        return json.dumps({'status':'ERR','msg':errmsg})
     except:
         traceback.print_exc()
         msg = str(sys.exc_info())
