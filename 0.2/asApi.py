@@ -249,7 +249,7 @@ def getProgrammeStudents(data):
     return rsp
     
 def getStudentProgrammeRegistrations(data):
-    app.logger.info("getProgrammeStudents"+json.dumps(data))
+    app.logger.info("getStudentProgrammeRegistrations"+json.dumps(data))
     studentList = data['studentList']
     #
     # TODO: will need paged queries for long lists
@@ -273,6 +273,93 @@ def getStudentProgrammeRegistrations(data):
     rsp = {'registrations':rlist}
     return rsp
     
+def getStudentFinalCourseResults(data):
+    app.logger.info("getStudentFinalCourseResults"+json.dumps(data))
+    studentList = data['studentList']
+    #
+    # TODO: will need paged queries for long lists
+    slistS = ",".join([str(x) for x in studentList])
+    qs = """select IAHSTNO,IAHCYR,IAHBC,IAHSUBJ,IAHQUAL,IAHFMARK,IAHERES 
+            from STUD.IAHSUB
+            where IAHSTNO in (%s)
+            order by IAHSTNO,IAHCYR,IAHBC,IAHSUBJ""" % slistS
+    rs = doQuery(qs)
+    rlist = []
+    for r in rs:
+        app.logger.info("r="+str(r))
+        bc = r['IAHBC']
+        if bc in ['11','21']:
+            session = 0
+        if bc in ['22']:
+            session = 1
+        else:
+            session = 0
+        rcode = r['IAHERES']  #TODO -- fix mapping of result code
+        rr = {'studentNumber':r['IAHSTNO'],'year':r['IAHCYR'],'session':session,\
+                'courseCode':r['IAHSUBJ'],'programmeCode':r['IAHQUAL'],\
+                'result':r['IAHFMARK'],'resultCode':rcode}
+        rlist.append(rr)
+    rsp = {'finalResults':rlist}
+    return rsp
+    
+def getAssessmentResults(data):
+    app.logger.info("getAssessmentResults"+json.dumps(data))
+    studentList = data['studentList']
+    #
+    # TODO: will need paged queries for long lists
+    slistS = ",".join([str(x) for x in studentList])
+    qs = """select JCHSTNO,JCHCYR,'??' as BC,JCHSUBJ,JCHMARKTYPE,JCHMARKNUMBER,JCHMARK 
+            from STUD.JCHSTM
+            where JCHSTNO in (%s)
+            order by JCHSTNO,JCHCYR,JCHSUBJ""" % slistS
+    rs = doQuery(qs)
+    rlist = []
+    for r in rs:
+        app.logger.info("r="+str(r))
+        bc = r['BC']  # TODO -- figure out how to fix this!
+        if bc in ['11','21']:
+            session = 0
+        if bc in ['22']:
+            session = 1
+        else:
+            session = 0
+        assessmentCode = "%s.%d" % (r['JCHMARKTYPE'],r['JCHMARKNUMBER'])
+        rr = {'studentNumber':r['JCHSTNO'],'year':r['JCHCYR'],'session':session,\
+                'courseCode':r['JCHSUBJ'],\
+                'assessmentCode':assessmentCode,'result':r['JCHMARK']}
+        rlist.append(rr)
+    rsp = {'assessmentResults':rlist}
+    return rsp
+
+def getStudentBioData(data):
+    app.logger.info("getStudentBioData"+json.dumps(data))
+    studentList = data['studentList']
+    #
+    # TODO: will need paged queries for long lists
+    slistS = ",".join([str(x) for x in studentList])
+    qs = """select IADSTNO,IADSURN,IADNAMES,IADBIRDAT,
+                (IADBIRDAT-TO_DATE('01-01-1970 00:00:00', 'DD-MM-YYYY HH24:MI:SS'))*24*60*60 AS UTIME,
+                IADSEX,IADETHN
+            from STUD.IADBIO where IADSTNO in (%s)""" % slistS
+    rs = doQuery(qs)
+    rlist = []
+    for r in rs:
+        app.logger.info("r="+str(r))
+        if r['IADSEX'] == 'M':
+            isMale = True
+        else:
+            isMale = False
+        rr = {'studentNumber':r['IADSTNO'],\
+                'lastName':r['IADSURN'],'firstNames':r['IADNAMES'],\
+                'dateOfBirth':r['UTIME'],\
+                'genderIsMale':isMale,'ethnicity':r['IADETHN'],\
+                'parentHighestAcademicQualification':'?',\
+                'highSchoolFinalResult':'?'
+        }
+        rlist.append(rr)
+    rsp = {'assessmentResults':rlist}
+    return rsp
+
 
 
 @app.route('/main',methods=['POST'])
@@ -283,7 +370,10 @@ def apiMain():
         'getFacultyDisciplinesId' : getFacultyDisciplinesId,
         'getDisciplineProgrammesId': getDisciplineProgrammesId,
         'getProgrammeStudents':getProgrammeStudents,
-        'getStudentProgrammeRegistrations':getStudentProgrammeRegistrations
+        'getStudentProgrammeRegistrations':getStudentProgrammeRegistrations,
+        'getStudentFinalCourseResults':getStudentFinalCourseResults,
+        'getAssessmentResults':getAssessmentResults,
+        'getStudentBioData':getStudentBioData
     }
 
     auth_requests = {
@@ -304,7 +394,7 @@ def apiMain():
                 raise NotLoggedInError("Not logged in")
             rsp = auth_requests[action](data)
         else:
-            raise NoSuchAction(action)
+            raise NoSuchAction("No handler found for action="+action)
         #
         # clean up and return
         rsp['status'] = 'OK'
