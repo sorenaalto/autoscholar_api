@@ -22,6 +22,7 @@ pp = pprint.PrettyPrinter(indent=4)
 print "Starting..."
 
 app = Flask("autoscholar-api")
+CORS(app)
 
 # my own quick-and-dirty db conn pool
 class myDbPool(dbPool):
@@ -53,15 +54,19 @@ def login():
         data = request.get_json()
         print data
         print type(data)
-        ssn = sessions.newSession(data['user'])
-        return json.dumps({"status":"OK","token":ssn.token,\
-                "user":ssn.username,\
+        ssn = sessions.newSession(data['userId'])
+        return json.dumps({"status":1,"logToken":ssn.token,\
+                "userId":ssn.username,\
                 "created":ssn.created_at})
 
 @app.route('/dumpsessions')
 def dumpSessions():
-    print sessions.getSessions()
-    return "OK"
+    smap = sessions.getSessions()
+    ssnlist = {}
+    for k in smap:
+        ssn = smap[k]
+        ssnlist[k] = ssn.asString()
+    return json.dumps({ "responseStatus":1,"sessions":ssnlist})
 
 @app.route('/session',methods=['POST'])
 def dumpMySession():
@@ -161,7 +166,7 @@ def doQuery(qs,plist=None):
 
         
 def getInstitutionId(data):
-    return {'institution':{'institutionCode':111,'institutionLabel':'DUT'}}
+    return {'institution':{'institutionCode':'ZA-DUT','institutionLabel':'Durban University of Technology'}}
 
 def getCollegeId(data):
     return {'colleges': [ \
@@ -178,7 +183,7 @@ def getCollegeFacultiesId(data):
         rlist = []
         for r in rs:
             app.logger.info("r="+str(r))
-            rr = {'code':r['GAECODE'],'label':r['GAENAME']}
+            rr = {'code':str(r['GAECODE']),'label':r['GAENAME']}
             rlist.append(rr)
         rsp = {'faculties':rlist}
         return rsp
@@ -197,7 +202,7 @@ def getFacultyDisciplinesId(data):
         app.logger.info("r="+str(r))
         rr = {'code':r['GACCODE'],'label':r['GACNAME']}
         rlist.append(rr)
-    rsp = {'faculties':rlist}
+    rsp = {'disciplines':rlist}
     return rsp
 
 def getDisciplineProgrammesId(data):
@@ -212,7 +217,7 @@ def getDisciplineProgrammesId(data):
     for r in rs:
         app.logger.info("r="+str(r))
         rr = {'programmeCode':r['IAIQUAL'],'programmeLabel':r['IAIDESC'],
-                'majorCode':'???','majorLabel':'???'
+                'majorCode':-1,'majorLabel':-1
         }
         rlist.append(rr)
     rsp = {'programmes':rlist}
@@ -242,7 +247,7 @@ def getProgrammeStudents(data):
     rlist = []
     for r in rs:
         app.logger.info("r="+str(r))
-        rr = {'studentNumber':r['IAGSTNO'],'majorCode':'???',\
+        rr = {'studentNumber':r['IAGSTNO'],'majorCode':-1,\
                 'lastName':r['IADSURN'],'firstNames':r['IADNAMES']}
         rlist.append(rr)
     rsp = {'students':rlist}
@@ -268,7 +273,7 @@ def getStudentProgrammeRegistrations(data):
             session = 1
         else:
             session = 0
-        rr = {'studentNumber':r['IAGSTNO'],'year':r['IAGCYR'],'session':session,'programmeCode':r['IAGQUAL'],'majorCode':'???'}
+        rr = {'studentNumber':r['IAGSTNO'],'year':r['IAGCYR'],'session':session,'programmeCode':r['IAGQUAL'],'majorCode':-1}
         rlist.append(rr)
     rsp = {'registrations':rlist}
     return rsp
@@ -283,6 +288,12 @@ def getStudentFinalCourseResults(data):
             from STUD.IAHSUB
             where IAHSTNO in (%s)
             order by IAHSTNO,IAHCYR,IAHBC,IAHSUBJ""" % slistS
+            
+    qs = """select IAHSTNO,IAHCYR,IAHBC,IAHSUBJ,IAHQUAL,IAHFMARK,IAHERES,IAKCREDIT*128 as SAPSECREDIT
+            from STUD.IAHSUB,STUD.IAKSUB
+            where IAHCYR=IAKCYR and IAHSUBJ=IAKSUBJ and IAHQUAL=IAKQUAL and IAHOT=IAKOT
+            and IAHSTNO in (%s)
+            order by IAHSTNO,IAHCYR,IAHBC,IAHSUBJ""" % slistS
     rs = doQuery(qs)
     rlist = []
     for r in rs:
@@ -296,7 +307,7 @@ def getStudentFinalCourseResults(data):
             session = 0
         rcode = r['IAHERES']  #TODO -- fix mapping of result code
         rr = {'studentNumber':r['IAHSTNO'],'year':r['IAHCYR'],'session':session,\
-                'courseCode':r['IAHSUBJ'],'programmeCode':r['IAHQUAL'],\
+                'courseCode':r['IAHSUBJ'],'courseCredits':r['SAPSECREDIT'],'programmeCode':r['IAHQUAL'],\
                 'result':r['IAHFMARK'],'resultCode':rcode}
         rlist.append(rr)
     rsp = {'finalResults':rlist}
@@ -353,11 +364,11 @@ def getStudentBioData(data):
                 'lastName':r['IADSURN'],'firstNames':r['IADNAMES'],\
                 'dateOfBirth':r['UTIME'],\
                 'genderIsMale':isMale,'ethnicity':r['IADETHN'],\
-                'parentHighestAcademicQualification':'?',\
-                'highSchoolFinalResult':'?'
+                'parentHighestAcademicQualification':-1,\
+                'highSchoolFinalResult':-1
         }
         rlist.append(rr)
-    rsp = {'assessmentResults':rlist}
+    rsp = {'studentBioData':rlist}
     return rsp
 
 
@@ -397,22 +408,22 @@ def apiMain():
             raise NoSuchAction("No handler found for action="+action)
         #
         # clean up and return
-        rsp['status'] = 'OK'
+        rsp['responseStatus'] = 1
         rsp['action'] = action
         return json.dumps(rsp)
     except NotLoggedInError as x:
         errmsg = x.value
-        return json.dumps({'status':'ERR','msg':errmsg})
+        return json.dumps({'responseStatus':0,'msg':errmsg})
     except NoSuchAction as x:
         errmsg = x.value
-        return json.dumps({'status':'ERR','msg':errmsg})
+        return json.dumps({'responseStatus':0,'msg':errmsg})
     except KeyError as x:
         errmsg = "missing property "+x.message
-        return json.dumps({'status':'ERR','msg':errmsg})
+        return json.dumps({'responseStatus':0,'msg':errmsg})
     except:
         traceback.print_exc()
         msg = str(sys.exc_info())
-        return json.dumps({'status':'ERR','msg':msg})
+        return json.dumps({'responseStatus':0,'msg':errmsg})
 
 if __name__ == "__main__":
 	app.run(debug=True,host=os.getenv('IP','0.0.0.0'),port=int(os.getenv('PORT',8100)))

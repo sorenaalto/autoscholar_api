@@ -1,0 +1,46 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+ 
+        <meta name="description" content="">
+        <meta name="author" content="">
+ 
+        <title>Application template</title>
+ 
+        <script src="../../externalLibraries/jqueryMin.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+       
+        <script>
+ 
+            (function() {
+                $.ajax({
+                  type: "POST",
+                  url: 'http://dut-dwg-test.northeurope.cloudapp.azure.com/api/ascholar/0.2/login',
+                  data: JSON.stringify({"user": 'aUser', "pass": 'aSecret'}),
+                  dataType: 'json',
+                  contentType: 'application/json',
+                  success: function(response){
+                    console.log(response);
+                  },
+                  error: function(response){
+                    console.log('Error!');
+                    console.log(response);
+                  }
+                });
+            })();
+           
+        </script>
+                               
+    </head>
+ 
+    <body>
+       
+        <center>
+            <div id="screenConsole"></div>
+            <div id="rootView" style="background-color: #ffffff; text-align: left">Please wait.. loading scripts..</div>
+        </center>
+    </body>
+</html>

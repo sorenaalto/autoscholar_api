@@ -46,7 +46,7 @@
                $('#login').click(function(e){
                    var user = $('#username').val();
                    var pass = $('#password').val();
-                   json = JSON.stringify({"user":user,"pass":pass});
+                   json = JSON.stringify({"action":"login","userId":user,"pwd":pass});
                    console.log("login: "+json);
                    
                    $.ajax({
@@ -59,8 +59,8 @@
                         success: function (e) {
                             console.log("success, e="+JSON.stringify(e)); 
                             $('#loginrsp').text(JSON.stringify(e,null,4));
-                            if(e.status == "OK") {
-                                login_token = e.token;
+                            if(e.status > 0) {
+                                login_token = e.logToken;
                                 $('#logintoken').text(login_token);
                             }
                         }
