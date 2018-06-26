@@ -312,6 +312,42 @@ def getStudentFinalCourseResults(data):
         rlist.append(rr)
     rsp = {'finalResults':rlist}
     return rsp
+
+def getStudentFinalCourseResultsMulti(data):
+    app.logger.info("getStudentFinalCourseResultsMulti"+json.dumps(data))
+    courseList = data['courseList']
+    yearList = data['yearList']
+    #
+    # TODO: will need paged queries for long lists
+    clistS = ",".join(["'%s'" % (str(x),) for x in courseList])
+    ylistS = ",".join(["'%s'" % (str(x),) for x in yearList])
+
+    qs = """select IAHSTNO,IAHCYR,IAHBC,IAHSUBJ,IAHQUAL,IAHFMARK,IAHERES,IAKCREDIT*128 as SAPSECREDIT
+            from STUD.IAHSUB,STUD.IAKSUB
+            where IAHCYR=IAKCYR and IAHSUBJ=IAKSUBJ and IAHQUAL=IAKQUAL and IAHOT=IAKOT
+            and IAHSUBJ in (%s)
+            and IAHCYR in (%s)
+            order by IAHSTNO,IAHCYR,IAHBC,IAHSUBJ""" % (clistS,ylistS)
+            
+    rs = doQuery(qs)
+    rlist = []
+    for r in rs:
+#        app.logger.info("r="+str(r))
+        bc = r['IAHBC']
+        if bc in ['11','21']:
+            session = 0
+        if bc in ['22']:
+            session = 1
+        else:
+            session = 0
+        rcode = r['IAHERES']  #TODO -- fix mapping of result code
+        rr = {'studentNumber':r['IAHSTNO'],'year':r['IAHCYR'],'session':session,\
+                'courseCode':r['IAHSUBJ'],'courseCredits':r['SAPSECREDIT'],'programmeCode':r['IAHQUAL'],\
+                'result':r['IAHFMARK'],'resultCode':rcode}
+        rlist.append(rr)
+    rsp = {'finalResults':rlist}
+    return rsp
+
     
 def getAssessmentResults(data):
     app.logger.info("getAssessmentResults"+json.dumps(data))
@@ -326,7 +362,7 @@ def getAssessmentResults(data):
     rs = doQuery(qs)
     rlist = []
     for r in rs:
-        app.logger.info("r="+str(r))
+#        app.logger.info("r="+str(r))
         bc = r['BC']  # TODO -- figure out how to fix this!
         if bc in ['11','21']:
             session = 0
@@ -342,6 +378,40 @@ def getAssessmentResults(data):
     rsp = {'assessmentResults':rlist}
     return rsp
 
+def getAssessmentResultsMulti(data):
+    app.logger.info("getAssessmentResultsMulti"+json.dumps(data))
+    courseList = data['courseList']
+    yearList = data['yearList']
+    #
+    # TODO: will need paged queries for long lists
+    clistS = ",".join(["'%s'" % (str(x),) for x in courseList])
+    ylistS = ",".join(["'%s'" % (str(x),) for x in yearList])
+
+    qs = """select JCHSTNO,JCHCYR,'??' as BC,JCHSUBJ,JCHMARKTYPE,JCHMARKNUMBER,JCHMARK 
+            from STUD.JCHSTM
+            where JCHSUBJ in (%s)
+            and JCHCYR in (%s)
+            order by JCHSTNO,JCHCYR,JCHSUBJ""" % (clistS,ylistS)
+    rs = doQuery(qs)
+    rlist = []
+    for r in rs:
+#        app.logger.info("r="+str(r))
+        bc = r['BC']  # TODO -- figure out how to fix this!
+        if bc in ['11','21']:
+            session = 0
+        if bc in ['22']:
+            session = 1
+        else:
+            session = 0
+        assessmentCode = "%s.%d" % (r['JCHMARKTYPE'],r['JCHMARKNUMBER'])
+        rr = {'studentNumber':r['JCHSTNO'],'year':r['JCHCYR'],'session':session,\
+                'courseCode':r['JCHSUBJ'],\
+                'assessmentCode':assessmentCode,'result':r['JCHMARK']}
+        rlist.append(rr)
+    rsp = {'assessmentResults':rlist}
+    return rsp
+
+
 def getStudentBioData(data):
     app.logger.info("getStudentBioData"+json.dumps(data))
     studentList = data['studentList']
@@ -355,7 +425,7 @@ def getStudentBioData(data):
     rs = doQuery(qs)
     rlist = []
     for r in rs:
-        app.logger.info("r="+str(r))
+#        app.logger.info("r="+str(r))
         if r['IADSEX'] == 'M':
             isMale = True
         else:
@@ -383,7 +453,9 @@ def apiMain():
         'getProgrammeStudents':getProgrammeStudents,
         'getStudentProgrammeRegistrations':getStudentProgrammeRegistrations,
         'getStudentFinalCourseResults':getStudentFinalCourseResults,
+        'getStudentFinalCourseResultsMulti':getStudentFinalCourseResultsMulti,
         'getAssessmentResults':getAssessmentResults,
+        'getAssessmentResultsMulti':getAssessmentResultsMulti,
         'getStudentBioData':getStudentBioData
     }
 
@@ -422,7 +494,7 @@ def apiMain():
         return json.dumps({'responseStatus':0,'msg':errmsg})
     except:
         traceback.print_exc()
-        msg = str(sys.exc_info())
+        errmsg = str(sys.exc_info())
         return json.dumps({'responseStatus':0,'msg':errmsg})
 
 if __name__ == "__main__":
