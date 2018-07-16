@@ -1,0 +1,22 @@
+import ldap
+import sys
+
+
+ldap_server="ldap://127.0.0.1:3389"
+ldap_user=sys.argv[1]
+ldap_pass=sys.argv[2]
+base_dn="OU=Users,OU=DUT Resources,DC=dut,DC=ac,DC=za"
+
+ldap_client=ldap.initialize(ldap_server)
+rc = ldap_client.simple_bind_s(ldap_user,ldap_pass)
+print "rc=",rc
+filter= "sAMAccountName=%s" % ("sorena",)
+attrlist = ['userPrincipalName','cn','memberOf','sAMAccountName','mail']
+rs = ldap_client.search_s(base_dn,ldap.SCOPE_SUBTREE,filter,None)
+#print "rs=",rs
+for r in rs:
+	(scope_dn,props) = r
+	print "scope_dn=",scope_dn
+	for p in props.keys():
+		print p,props[p]
+

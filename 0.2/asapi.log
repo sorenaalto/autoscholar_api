@@ -1,0 +1,744 @@
+ * Running on http://127.0.0.1:8100/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 295-264-781
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:284]:
+getStudentFinalCourseResults{"action": "getStudentFinalCourseResults", "token": "7c3ab866-0f77-4e79-8b22-26f0d01092d8", "studentList": [21416315]}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:107]:
+get db conn from pool
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:149]:
+select IAHSTNO,IAHCYR,IAHBC,IAHSUBJ,IAHQUAL,IAHFMARK,IAHERES,IAKCREDIT*128 as SAPSECREDIT
+            from STUD.IAHSUB,STUD.IAKSUB
+            where IAHCYR=IAKCYR and IAHSUBJ=IAKSUBJ and IAHQUAL=IAKQUAL and IAHOT=IAKOT
+            and IAHSTNO in (21416315)
+            order by IAHSTNO,IAHCYR,IAHBC,IAHSUBJ
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:155]:
+query returns...
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:118]:
+columns=['IAHSTNO', 'IAHCYR', 'IAHBC', 'IAHSUBJ', 'IAHQUAL', 'IAHFMARK', 'IAHERES', 'SAPSECREDIT']
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:127]:
+DbQuery returned 37 rows
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:158]:
+response wrapped
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2014, 'IAHSUBJ': 'DSFW112', 'IAHFMARK': 57, 'IAHQUAL': 'NDINS1', 'IAHBC': '21', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2014, 'IAHSUBJ': 'ISYS113', 'IAHFMARK': 68, 'IAHQUAL': 'NDINS1', 'IAHBC': '21', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2014, 'IAHSUBJ': 'SSFT111', 'IAHFMARK': 68, 'IAHQUAL': 'NDINS1', 'IAHBC': '21', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2014, 'IAHSUBJ': 'TPRG111', 'IAHFMARK': 59, 'IAHQUAL': 'NDINS1', 'IAHBC': '21', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 0.0, 'IAHSTNO': 21416315, 'IAHCYR': 2014, 'IAHSUBJ': 'DSFW102', 'IAHFMARK': 62, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2014, 'IAHSUBJ': 'DSFW122', 'IAHFMARK': 46, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'FS'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 0.0, 'IAHSTNO': 21416315, 'IAHCYR': 2014, 'IAHSUBJ': 'ISYS103', 'IAHFMARK': 63, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2014, 'IAHSUBJ': 'ISYS123', 'IAHFMARK': 58, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 0.0, 'IAHSTNO': 21416315, 'IAHCYR': 2014, 'IAHSUBJ': 'SSFT101', 'IAHFMARK': 69, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2014, 'IAHSUBJ': 'SSFT121', 'IAHFMARK': 69, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 0.0, 'IAHSTNO': 21416315, 'IAHCYR': 2014, 'IAHSUBJ': 'TPRG101', 'IAHFMARK': 67, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2014, 'IAHSUBJ': 'TPRG121', 'IAHFMARK': 75, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'P*'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2014, 'IAHSUBJ': 'DSFW122', 'IAHFMARK': 67, 'IAHQUAL': 'NDINS1', 'IAHBC': 'R3', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2015, 'IAHSUBJ': 'DSFW212', 'IAHFMARK': 55, 'IAHQUAL': 'NDINS1', 'IAHBC': '21', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2015, 'IAHSUBJ': 'ISYS213', 'IAHFMARK': None, 'IAHQUAL': 'NDINS1', 'IAHBC': '21', 'IAHERES': 'FA'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2015, 'IAHSUBJ': 'ITSK111', 'IAHFMARK': 38, 'IAHQUAL': 'NDINS1', 'IAHBC': '21', 'IAHERES': 'FZ'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2015, 'IAHSUBJ': 'SSFT223', 'IAHFMARK': 51, 'IAHQUAL': 'NDINS1', 'IAHBC': '21', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2015, 'IAHSUBJ': 'TPRG211', 'IAHFMARK': 51, 'IAHQUAL': 'NDINS1', 'IAHBC': '21', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 0.0, 'IAHSTNO': 21416315, 'IAHCYR': 2015, 'IAHSUBJ': 'DSFW202', 'IAHFMARK': 54, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2015, 'IAHSUBJ': 'DSFW222', 'IAHFMARK': 53, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 0.0, 'IAHSTNO': 21416315, 'IAHCYR': 2015, 'IAHSUBJ': 'ITSK103', 'IAHFMARK': 34, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'IM'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2015, 'IAHSUBJ': 'ITSK121', 'IAHFMARK': 29, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'FZ'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 0.0, 'IAHSTNO': 21416315, 'IAHCYR': 2015, 'IAHSUBJ': 'SSFT203', 'IAHFMARK': 26, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'IM'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2015, 'IAHSUBJ': 'SSFT213', 'IAHFMARK': None, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'FA'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 0.0, 'IAHSTNO': 21416315, 'IAHCYR': 2015, 'IAHSUBJ': 'TPRG201', 'IAHFMARK': 52, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2015, 'IAHSUBJ': 'TPRG221', 'IAHFMARK': 45, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'FS'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2015, 'IAHSUBJ': 'TPRG221', 'IAHFMARK': 52, 'IAHQUAL': 'NDINS1', 'IAHBC': 'R3', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 32.0, 'IAHSTNO': 21416315, 'IAHCYR': 2016, 'IAHSUBJ': 'IPRO201', 'IAHFMARK': 70, 'IAHQUAL': 'NDINS1', 'IAHBC': '11', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2016, 'IAHSUBJ': 'ISYS213', 'IAHFMARK': 63, 'IAHQUAL': 'NDINS1', 'IAHBC': '21', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 0.0, 'IAHSTNO': 21416315, 'IAHCYR': 2016, 'IAHSUBJ': 'SSFT203', 'IAHFMARK': 70, 'IAHQUAL': 'NDINS1', 'IAHBC': '21', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2016, 'IAHSUBJ': 'SSFT213', 'IAHFMARK': 89, 'IAHQUAL': 'NDINS1', 'IAHBC': '21', 'IAHERES': 'P*'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 0.0, 'IAHSTNO': 21416315, 'IAHCYR': 2016, 'IAHSUBJ': 'ISYS203', 'IAHFMARK': 53, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'IM'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2016, 'IAHSUBJ': 'ISYS223', 'IAHFMARK': 46, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'FS'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 0.0, 'IAHSTNO': 21416315, 'IAHCYR': 2016, 'IAHSUBJ': 'ITSK103', 'IAHFMARK': 67, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2016, 'IAHSUBJ': 'ITSK111', 'IAHFMARK': 79, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'P*'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2016, 'IAHSUBJ': 'ITSK121', 'IAHFMARK': 54, 'IAHQUAL': 'NDINS1', 'IAHBC': '22', 'IAHERES': 'P'}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:304]:
+r={'SAPSECREDIT': 16.0, 'IAHSTNO': 21416315, 'IAHCYR': 2017, 'IAHSUBJ': 'ISYS223', 'IAHFMARK': 43, 'IAHQUAL': 'NDINS1', 'IAHBC': 'R2', 'IAHERES': 'F'}
+--------------------------------------------------------------------------------
+127.0.0.1 - - [02/Jul/2018 08:06:36] "POST /main HTTP/1.1" 200 -
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:284]:
+getStudentFinalCourseResults{"action": "getStudentFinalCourseResults", "token": "7c3ab866-0f77-4e79-8b22-26f0d01092d8", "studentList": []}
+--------------------------------------------------------------------------------
+Traceback (most recent call last):
+  File "asApi.py", line 492, in apiMain
+    rsp = non_auth_requests[action](data)
+  File "asApi.py", line 287, in getStudentFinalCourseResults
+    raise RequestParameterError("studentList must not be empty")
+RequestParameterError: 'studentList must not be empty'
+127.0.0.1 - - [02/Jul/2018 08:06:45] "POST /main HTTP/1.1" 200 -
+ * Detected change in '/home/soren/stuff/api/autoscholar/0.2/asApi.py', reloading
+Starting...
+/main, data= {u'action': u'getStudentFinalCourseResults', u'token': u'7c3ab866-0f77-4e79-8b22-26f0d01092d8', u'studentList': [21416315]}
+Action= getStudentFinalCourseResults
+getConn...
+create new db pool connection
+allocated new conn 1
+freeConn...
+/main, data= {u'action': u'getStudentFinalCourseResults', u'token': u'7c3ab866-0f77-4e79-8b22-26f0d01092d8', u'studentList': []}
+Action= getStudentFinalCourseResults
+closeAllConns
+...close
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 295-264-781
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:284]:
+getStudentFinalCourseResults{"action": "getStudentFinalCourseResults", "token": "7c3ab866-0f77-4e79-8b22-26f0d01092d8", "studentList": []}
+--------------------------------------------------------------------------------
+127.0.0.1 - - [02/Jul/2018 08:08:13] "POST /main HTTP/1.1" 200 -
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:257]:
+getStudentProgrammeRegistrations{"action": "getStudentProgrammeRegistrations", "token": "7c3ab866-0f77-4e79-8b22-26f0d01092d8", "studentList": []}
+--------------------------------------------------------------------------------
+127.0.0.1 - - [02/Jul/2018 08:20:45] "POST /main HTTP/1.1" 200 -
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:257]:
+getStudentProgrammeRegistrations{"action": "getStudentProgrammeRegistrations", "token": "7c3ab866-0f77-4e79-8b22-26f0d01092d8", "studentList": [21416315]}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:107]:
+get db conn from pool
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:149]:
+select IAGSTNO,IAGCYR,IAGBC,IAGQUAL from STUD.IAGENR
+            where IAGSTNO in (21416315)
+            order by IAGSTNO,IAGCYR,IAGBC
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:155]:
+query returns...
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:118]:
+columns=['IAGSTNO', 'IAGCYR', 'IAGBC', 'IAGQUAL']
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:127]:
+DbQuery returned 6 rows
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:158]:
+response wrapped
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:270]:
+r={'IAGQUAL': 'NDINS1', 'IAGBC': '21', 'IAGSTNO': 21416315, 'IAGCYR': 2014}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:270]:
+r={'IAGQUAL': 'NDINS1', 'IAGBC': '22', 'IAGSTNO': 21416315, 'IAGCYR': 2014}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:270]:
+r={'IAGQUAL': 'NDINS1', 'IAGBC': '21', 'IAGSTNO': 21416315, 'IAGCYR': 2015}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:270]:
+r={'IAGQUAL': 'NDINS1', 'IAGBC': '22', 'IAGSTNO': 21416315, 'IAGCYR': 2015}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:270]:
+r={'IAGQUAL': 'NDINS1', 'IAGBC': '11', 'IAGSTNO': 21416315, 'IAGCYR': 2016}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:270]:
+r={'IAGQUAL': 'NDINS1', 'IAGBC': 'R2', 'IAGSTNO': 21416315, 'IAGCYR': 2017}
+--------------------------------------------------------------------------------
+127.0.0.1 - - [02/Jul/2018 08:21:07] "POST /main HTTP/1.1" 200 -
+ * Detected change in '/home/soren/stuff/api/autoscholar/0.2/asApi.py', reloading
+Starting...
+/main, data= {u'action': u'getStudentFinalCourseResults', u'token': u'7c3ab866-0f77-4e79-8b22-26f0d01092d8', u'studentList': []}
+Action= getStudentFinalCourseResults
+/main, data= {u'action': u'getStudentProgrammeRegistrations', u'token': u'7c3ab866-0f77-4e79-8b22-26f0d01092d8', u'studentList': []}
+Action= getStudentProgrammeRegistrations
+/main, data= {u'action': u'getStudentProgrammeRegistrations', u'token': u'7c3ab866-0f77-4e79-8b22-26f0d01092d8', u'studentList': [21416315]}
+Action= getStudentProgrammeRegistrations
+getConn...
+create new db pool connection
+allocated new conn 1
+freeConn...
+closeAllConns
+...close
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 295-264-781
+127.0.0.1 - - [02/Jul/2018 09:19:01] "OPTIONS /login HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:19:01] "POST /login HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:19:01] "OPTIONS /main HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:19:01] "POST /main HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:19:02] "OPTIONS /main HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:19:02] "POST /main HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:19:02] "OPTIONS /main HTTP/1.1" 200 -
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:178]:
+getCollegeFacultiesId{"action": "getCollegeFacultiesId", "token": "7532a0a6-7f68-4b19-9507-21469c062561", "collegeCode": "ACAD"}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:107]:
+get db conn from pool
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:149]:
+select * from GEN.GAEFAC where GAECODE in ('31','32','33','34','35','36')
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:155]:
+query returns...
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:118]:
+columns=['GAECODE', 'GAENAME', 'GAEFACT', 'GAECOMP', 'GAEAFRNAME', 'GAEACTIVE', 'GAEADDR1', 'GAEADDR2', 'GAEADDR3', 'GAEPCODE', 'GAETEL', 'GAEHAD1', 'GAEHAD2', 'GAEHAD3', 'GAEHAD4', 'GAEPCDE', 'GAEFAX', 'GAEPNUM', 'GAEEDOMAIN', 'GAEOCLEVC', 'GAESORT', 'GAEFULLNAME', 'GAEFULLNAMEA', 'GAECOLCODE', 'GAEACAD', 'GAEORIGINS', 'GAEADFSEQ']
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:127]:
+DbQuery returned 6 rows
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:158]:
+response wrapped
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:185]:
+r={'GAEAFRNAME': 'FACULTY OF ARTS AND DESIGN', 'GAEOCLEVC': None, 'GAEADFSEQ': 47, 'GAENAME': 'FACULTY OF ARTS AND DESIGN', 'GAEPCODE': None, 'GAEFULLNAMEA': None, 'GAEACTIVE': 'Y', 'GAECOMP': None, 'GAEPNUM': None, 'GAEPCDE': None, 'GAEFULLNAME': None, 'GAEHAD3': None, 'GAEHAD2': None, 'GAEHAD1': None, 'GAEHAD4': None, 'GAEFAX': None, 'GAECOLCODE': None, 'GAEFACT': None, 'GAECODE': 31, 'GAETEL': None, 'GAESORT': None, 'GAEACAD': None, 'GAEEDOMAIN': None, 'GAEORIGINS': None, 'GAEADDR1': None, 'GAEADDR2': None, 'GAEADDR3': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:185]:
+r={'GAEAFRNAME': 'FACULTY OF ACC AND INFORMATICS', 'GAEOCLEVC': None, 'GAEADFSEQ': 48, 'GAENAME': 'FACULTY OF ACC AND INFORMATICS', 'GAEPCODE': None, 'GAEFULLNAMEA': None, 'GAEACTIVE': 'Y', 'GAECOMP': None, 'GAEPNUM': None, 'GAEPCDE': None, 'GAEFULLNAME': None, 'GAEHAD3': None, 'GAEHAD2': None, 'GAEHAD1': None, 'GAEHAD4': None, 'GAEFAX': None, 'GAECOLCODE': None, 'GAEFACT': None, 'GAECODE': 32, 'GAETEL': None, 'GAESORT': None, 'GAEACAD': None, 'GAEEDOMAIN': None, 'GAEORIGINS': None, 'GAEADDR1': None, 'GAEADDR2': None, 'GAEADDR3': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:185]:
+r={'GAEAFRNAME': 'FACULTY OF MANAGEMENT SCIENCES', 'GAEOCLEVC': None, 'GAEADFSEQ': 49, 'GAENAME': 'FACULTY OF MANAGEMENT SCIENCES', 'GAEPCODE': None, 'GAEFULLNAMEA': None, 'GAEACTIVE': 'Y', 'GAECOMP': None, 'GAEPNUM': None, 'GAEPCDE': None, 'GAEFULLNAME': None, 'GAEHAD3': None, 'GAEHAD2': None, 'GAEHAD1': None, 'GAEHAD4': None, 'GAEFAX': None, 'GAECOLCODE': None, 'GAEFACT': None, 'GAECODE': 33, 'GAETEL': None, 'GAESORT': None, 'GAEACAD': None, 'GAEEDOMAIN': None, 'GAEORIGINS': None, 'GAEADDR1': None, 'GAEADDR2': None, 'GAEADDR3': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:185]:
+r={'GAEAFRNAME': 'FACULTY OF APPLIED SCIENCES', 'GAEOCLEVC': None, 'GAEADFSEQ': 50, 'GAENAME': 'FACULTY OF APPLIED SCIENCES', 'GAEPCODE': None, 'GAEFULLNAMEA': None, 'GAEACTIVE': 'Y', 'GAECOMP': None, 'GAEPNUM': None, 'GAEPCDE': None, 'GAEFULLNAME': None, 'GAEHAD3': None, 'GAEHAD2': None, 'GAEHAD1': None, 'GAEHAD4': None, 'GAEFAX': None, 'GAECOLCODE': None, 'GAEFACT': None, 'GAECODE': 34, 'GAETEL': None, 'GAESORT': None, 'GAEACAD': None, 'GAEEDOMAIN': None, 'GAEORIGINS': None, 'GAEADDR1': None, 'GAEADDR2': None, 'GAEADDR3': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:185]:
+r={'GAEAFRNAME': 'FACULTY OF ENG & THE BUILT ENV', 'GAEOCLEVC': None, 'GAEADFSEQ': 51, 'GAENAME': 'FACULTY OF ENG & THE BUILT ENV', 'GAEPCODE': None, 'GAEFULLNAMEA': None, 'GAEACTIVE': 'Y', 'GAECOMP': None, 'GAEPNUM': None, 'GAEPCDE': None, 'GAEFULLNAME': None, 'GAEHAD3': None, 'GAEHAD2': None, 'GAEHAD1': None, 'GAEHAD4': None, 'GAEFAX': None, 'GAECOLCODE': None, 'GAEFACT': None, 'GAECODE': 35, 'GAETEL': None, 'GAESORT': None, 'GAEACAD': None, 'GAEEDOMAIN': None, 'GAEORIGINS': None, 'GAEADDR1': None, 'GAEADDR2': None, 'GAEADDR3': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:185]:
+r={'GAEAFRNAME': 'FACULTY OF HEALTH SCIENCES', 'GAEOCLEVC': None, 'GAEADFSEQ': 52, 'GAENAME': 'FACULTY OF HEALTH SCIENCES', 'GAEPCODE': None, 'GAEFULLNAMEA': None, 'GAEACTIVE': 'Y', 'GAECOMP': None, 'GAEPNUM': None, 'GAEPCDE': None, 'GAEFULLNAME': None, 'GAEHAD3': None, 'GAEHAD2': None, 'GAEHAD1': None, 'GAEHAD4': None, 'GAEFAX': None, 'GAECOLCODE': None, 'GAEFACT': None, 'GAECODE': 36, 'GAETEL': None, 'GAESORT': None, 'GAEACAD': None, 'GAEEDOMAIN': None, 'GAEORIGINS': None, 'GAEADDR1': None, 'GAEADDR2': None, 'GAEADDR3': None}
+--------------------------------------------------------------------------------
+127.0.0.1 - - [02/Jul/2018 09:19:04] "POST /main HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:19:05] "OPTIONS /main HTTP/1.1" 200 -
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:194]:
+getFacultyDisciplnesId{"action": "getFacultyDisciplinesId", "token": "7532a0a6-7f68-4b19-9507-21469c062561", "facultyCode": "31"}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:107]:
+get db conn from pool
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:149]:
+select * from GEN.GACDPT where GACFACT=:1
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:155]:
+query returns...
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:118]:
+columns=['GACCODE', 'GACNAME', 'GACFACT', 'GACPASS', 'GACVATREG', 'GACCAMP', 'GACACTIVE', 'GACGLCC', 'GACMINWRS', 'GACFTE', 'GACREM801', 'GACREM802', 'GACREM803', 'GACREM804', 'GACBUDWHT', 'GACALTDNAME', 'GACYR1', 'GACYR2', 'GACYR3', 'GACOCLEVC', 'GACSORT', 'GACFULLNAME', 'GACFULLNAMEA', 'GACLECT', 'GACDEPTID', 'GACORIGINS', 'GACADFSEQ']
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:127]:
+DbQuery returned 8 rows
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:158]:
+response wrapped
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:202]:
+r={'GACSORT': None, 'GACREM801': None, 'GACOCLEVC': None, 'GACNAME': 'FACULTY OFFICE-ARTS & DESIGN', 'GACYR2': None, 'GACYR3': None, 'GACLECT': None, 'GACFULLNAMEA': None, 'GACCODE': 3100, 'GACMINWRS': None, 'GACCAMP': None, 'GACGLCC': None, 'GACFULLNAME': None, 'GACACTIVE': 'Y', 'GACYR1': None, 'GACREM804': None, 'GACREM802': None, 'GACREM803': None, 'GACPASS': None, 'GACDEPTID': None, 'GACALTDNAME': None, 'GACVATREG': None, 'GACFACT': 31, 'GACFTE': None, 'GACORIGINS': None, 'GACADFSEQ': 753, 'GACBUDWHT': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:202]:
+r={'GACSORT': None, 'GACREM801': None, 'GACOCLEVC': None, 'GACNAME': 'VIDEO TECHNOLOGY', 'GACYR2': None, 'GACYR3': None, 'GACLECT': None, 'GACFULLNAMEA': None, 'GACCODE': 3101, 'GACMINWRS': None, 'GACCAMP': None, 'GACGLCC': None, 'GACFULLNAME': None, 'GACACTIVE': 'Y', 'GACYR1': None, 'GACREM804': None, 'GACREM802': None, 'GACREM803': None, 'GACPASS': None, 'GACDEPTID': None, 'GACALTDNAME': None, 'GACVATREG': None, 'GACFACT': 31, 'GACFTE': None, 'GACORIGINS': None, 'GACADFSEQ': 702, 'GACBUDWHT': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:202]:
+r={'GACSORT': None, 'GACREM801': None, 'GACOCLEVC': None, 'GACNAME': 'SCHOOL OF EDUCATION', 'GACYR2': None, 'GACYR3': None, 'GACLECT': None, 'GACFULLNAMEA': None, 'GACCODE': 3102, 'GACMINWRS': None, 'GACCAMP': None, 'GACGLCC': None, 'GACFULLNAME': None, 'GACACTIVE': 'Y', 'GACYR1': None, 'GACREM804': None, 'GACREM802': None, 'GACREM803': None, 'GACPASS': None, 'GACDEPTID': None, 'GACALTDNAME': None, 'GACVATREG': None, 'GACFACT': 31, 'GACFTE': None, 'GACORIGINS': None, 'GACADFSEQ': 703, 'GACBUDWHT': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:202]:
+r={'GACSORT': None, 'GACREM801': None, 'GACOCLEVC': None, 'GACNAME': 'FINE ART & JEWELLERY DESIGN', 'GACYR2': None, 'GACYR3': None, 'GACLECT': None, 'GACFULLNAMEA': None, 'GACCODE': 3103, 'GACMINWRS': None, 'GACCAMP': None, 'GACGLCC': None, 'GACFULLNAME': None, 'GACACTIVE': 'Y', 'GACYR1': None, 'GACREM804': None, 'GACREM802': None, 'GACREM803': None, 'GACPASS': None, 'GACDEPTID': None, 'GACALTDNAME': None, 'GACVATREG': None, 'GACFACT': 31, 'GACFTE': None, 'GACORIGINS': None, 'GACADFSEQ': 704, 'GACBUDWHT': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:202]:
+r={'GACSORT': None, 'GACREM801': None, 'GACOCLEVC': None, 'GACNAME': 'MEDIA LANG & COMMUNICATION', 'GACYR2': None, 'GACYR3': None, 'GACLECT': None, 'GACFULLNAMEA': None, 'GACCODE': 3104, 'GACMINWRS': None, 'GACCAMP': None, 'GACGLCC': None, 'GACFULLNAME': None, 'GACACTIVE': 'Y', 'GACYR1': None, 'GACREM804': None, 'GACREM802': None, 'GACREM803': None, 'GACPASS': None, 'GACDEPTID': None, 'GACALTDNAME': None, 'GACVATREG': None, 'GACFACT': 31, 'GACFTE': None, 'GACORIGINS': None, 'GACADFSEQ': 705, 'GACBUDWHT': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:202]:
+r={'GACSORT': None, 'GACREM801': None, 'GACOCLEVC': None, 'GACNAME': 'VISUAL COMMUNICATION DESIGN', 'GACYR2': None, 'GACYR3': None, 'GACLECT': None, 'GACFULLNAMEA': None, 'GACCODE': 3105, 'GACMINWRS': None, 'GACCAMP': None, 'GACGLCC': None, 'GACFULLNAME': None, 'GACACTIVE': 'Y', 'GACYR1': None, 'GACREM804': None, 'GACREM802': None, 'GACREM803': None, 'GACPASS': None, 'GACDEPTID': None, 'GACALTDNAME': None, 'GACVATREG': None, 'GACFACT': 31, 'GACFTE': None, 'GACORIGINS': None, 'GACADFSEQ': 706, 'GACBUDWHT': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:202]:
+r={'GACSORT': None, 'GACREM801': None, 'GACOCLEVC': None, 'GACNAME': 'FASHION & TEXTILES', 'GACYR2': None, 'GACYR3': None, 'GACLECT': None, 'GACFULLNAMEA': None, 'GACCODE': 3106, 'GACMINWRS': None, 'GACCAMP': None, 'GACGLCC': None, 'GACFULLNAME': None, 'GACACTIVE': 'Y', 'GACYR1': None, 'GACREM804': None, 'GACREM802': None, 'GACREM803': None, 'GACPASS': None, 'GACDEPTID': None, 'GACALTDNAME': None, 'GACVATREG': None, 'GACFACT': 31, 'GACFTE': None, 'GACORIGINS': None, 'GACADFSEQ': 707, 'GACBUDWHT': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:202]:
+r={'GACSORT': None, 'GACREM801': None, 'GACOCLEVC': None, 'GACNAME': 'DRAMA AND PROD STUDIES', 'GACYR2': None, 'GACYR3': None, 'GACLECT': None, 'GACFULLNAMEA': None, 'GACCODE': 3108, 'GACMINWRS': None, 'GACCAMP': None, 'GACGLCC': None, 'GACFULLNAME': None, 'GACACTIVE': 'Y', 'GACYR1': None, 'GACREM804': None, 'GACREM802': None, 'GACREM803': None, 'GACPASS': None, 'GACDEPTID': None, 'GACALTDNAME': None, 'GACVATREG': None, 'GACFACT': 31, 'GACFTE': None, 'GACORIGINS': None, 'GACADFSEQ': 776, 'GACBUDWHT': None}
+--------------------------------------------------------------------------------
+127.0.0.1 - - [02/Jul/2018 09:19:05] "POST /main HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:19:06] "OPTIONS /main HTTP/1.1" 200 -
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:209]:
+getDisciplineProgrammesId{"action": "getDisciplineProgrammesId", "token": "7532a0a6-7f68-4b19-9507-21469c062561", "year": 2017, "disciplineCode": "3100"}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:107]:
+get db conn from pool
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:149]:
+select * from STUD.IAIQAL where IAIDEPT=:1 and IAICYR=:2
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:155]:
+query returns...
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:118]:
+columns=['IAIQUAL', 'IAIAPPQUAL', 'IAIFAC', 'IAIDESC', 'IAIACTIVE', 'IAIROW102', 'IAIROW212', 'IAIFODATE', 'IAIINDATE', 'IAIAFR', 'IAIFCURR', 'IAIWRS', 'IAIMULTIROW', 'IAIPER', 'IAIMINCRED', 'IAISAPSE', 'IAIMAXCRED', 'IAIEMPMAN', 'IAIDEPT', 'IAIEXAMGROUP', 'IAICYR', 'IAILOWAGE', 'IAIINS', 'IAICONVINS', 'IAIMINMAJ', 'IAIGENCODE', 'IAIMINWRS', 'IAICHKQA', 'IAIMINOM', 'IAICRLOAD', 'IAIFULLDESC', 'IAIDAY', 'IAIMONTH', 'IAIADDTOYEAR', 'IAIHIGHAGE', 'IAIACCTYP', 'IAIHOOD', 'IAIREMARKS', 'IAILASTUPD', 'IAISENATEN', 'IAIFULLNAME', 'IAIFULLNAMEA', 'IAIFUNDC', 'IAINCREDT', 'IAIFOLC', 'IAIBESTWRS', 'IAISTYPE', 'IAINUMSUBTYPE', 'IAIADDCRED', 'IAIMINCREDUN', 'IAINXTMODDATE', 'IAIOWNERSHIP', 'IAISKILS', 'IAIGPA', 'IAIAPPROVED', 'IAICHEIND', 'IAIQARN', 'IAIPROFDEV', 'IAIREVIEWSTAT', 'IAIREVPDATES', 'IAIIND', 'IAIEXSTATREP', 'IAIALLOWOTC', 'IAIINDCODE', 'IAIELIGCO', 'IAIWTMINWRS', 'IAIUPD', 'IAINUMSTYPE', 'IAIREFREM', 'IAIMAXAMT', 'IAIMNCRED', 'IAIMXCRED', 'IAIALLOWOTCO', 'IAIULTEMP', 'IAIFQTA', 'IAIUSEFLD', 'IAIQUALINV', 'IAIRMINCRED', 'IAIRMAXCRED', 'IAIORIGINS', 'IAIFPMAGE', 'IAIIEQDESC', 'IAIPOSTGTYPE', 'IAIQCE', 'IAIQSLP', 'IAITOKEN', 'IAIPRTMAJ', 'IAIPRTTCOMP', 'IAIMINSELSCORE', 'IAIMINSELPERC', 'IAIADFSEQ']
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:127]:
+DbQuery returned 6 rows
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:158]:
+response wrapped
+--------------------------------------------------------------------------------
+127.0.0.1 - - [02/Jul/2018 09:19:06] "POST /main HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:19:07] "OPTIONS /main HTTP/1.1" 200 -
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:227]:
+getProgrammeStudents{"action": "getProgrammeStudents", "programmeCode": "undefined", "token": "7532a0a6-7f68-4b19-9507-21469c062561", "session": 0, "year": 2017}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:107]:
+get db conn from pool
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:149]:
+select IAGSTNO,IADSURN,IADNAMES 
+            from STUD.IAGENR, STUD.IADBIO
+            where IAGSTNO=IADSTNO
+            and IAGQUAL=:1
+            and IAGCYR=:2
+            and IAGBC in ('11')
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:155]:
+query returns...
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:118]:
+columns=['IAGSTNO', 'IADSURN', 'IADNAMES']
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:127]:
+DbQuery returned 0 rows
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:158]:
+response wrapped
+--------------------------------------------------------------------------------
+127.0.0.1 - - [02/Jul/2018 09:19:07] "POST /main HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:19:07] "OPTIONS /main HTTP/1.1" 200 -
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:257]:
+getStudentProgrammeRegistrations{"action": "getStudentProgrammeRegistrations", "studentList": [], "token": "7532a0a6-7f68-4b19-9507-21469c062561"}
+--------------------------------------------------------------------------------
+127.0.0.1 - - [02/Jul/2018 09:19:08] "POST /main HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:22:27] "OPTIONS /login HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:22:28] "POST /login HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:22:29] "OPTIONS /main HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:22:30] "POST /main HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:22:30] "OPTIONS /main HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:22:30] "POST /main HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:22:30] "OPTIONS /main HTTP/1.1" 200 -
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:178]:
+getCollegeFacultiesId{"action": "getCollegeFacultiesId", "token": "65349d87-1b52-48f8-a29c-b40220b36d12", "collegeCode": "ACAD"}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:107]:
+get db conn from pool
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:149]:
+select * from GEN.GAEFAC where GAECODE in ('31','32','33','34','35','36')
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:155]:
+query returns...
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:118]:
+columns=['GAECODE', 'GAENAME', 'GAEFACT', 'GAECOMP', 'GAEAFRNAME', 'GAEACTIVE', 'GAEADDR1', 'GAEADDR2', 'GAEADDR3', 'GAEPCODE', 'GAETEL', 'GAEHAD1', 'GAEHAD2', 'GAEHAD3', 'GAEHAD4', 'GAEPCDE', 'GAEFAX', 'GAEPNUM', 'GAEEDOMAIN', 'GAEOCLEVC', 'GAESORT', 'GAEFULLNAME', 'GAEFULLNAMEA', 'GAECOLCODE', 'GAEACAD', 'GAEORIGINS', 'GAEADFSEQ']
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:127]:
+DbQuery returned 6 rows
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:158]:
+response wrapped
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:185]:
+r={'GAEAFRNAME': 'FACULTY OF ARTS AND DESIGN', 'GAEOCLEVC': None, 'GAEADFSEQ': 47, 'GAENAME': 'FACULTY OF ARTS AND DESIGN', 'GAEPCODE': None, 'GAEFULLNAMEA': None, 'GAEACTIVE': 'Y', 'GAECOMP': None, 'GAEPNUM': None, 'GAEPCDE': None, 'GAEFULLNAME': None, 'GAEHAD3': None, 'GAEHAD2': None, 'GAEHAD1': None, 'GAEHAD4': None, 'GAEFAX': None, 'GAECOLCODE': None, 'GAEFACT': None, 'GAECODE': 31, 'GAETEL': None, 'GAESORT': None, 'GAEACAD': None, 'GAEEDOMAIN': None, 'GAEORIGINS': None, 'GAEADDR1': None, 'GAEADDR2': None, 'GAEADDR3': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:185]:
+r={'GAEAFRNAME': 'FACULTY OF ACC AND INFORMATICS', 'GAEOCLEVC': None, 'GAEADFSEQ': 48, 'GAENAME': 'FACULTY OF ACC AND INFORMATICS', 'GAEPCODE': None, 'GAEFULLNAMEA': None, 'GAEACTIVE': 'Y', 'GAECOMP': None, 'GAEPNUM': None, 'GAEPCDE': None, 'GAEFULLNAME': None, 'GAEHAD3': None, 'GAEHAD2': None, 'GAEHAD1': None, 'GAEHAD4': None, 'GAEFAX': None, 'GAECOLCODE': None, 'GAEFACT': None, 'GAECODE': 32, 'GAETEL': None, 'GAESORT': None, 'GAEACAD': None, 'GAEEDOMAIN': None, 'GAEORIGINS': None, 'GAEADDR1': None, 'GAEADDR2': None, 'GAEADDR3': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:185]:
+r={'GAEAFRNAME': 'FACULTY OF MANAGEMENT SCIENCES', 'GAEOCLEVC': None, 'GAEADFSEQ': 49, 'GAENAME': 'FACULTY OF MANAGEMENT SCIENCES', 'GAEPCODE': None, 'GAEFULLNAMEA': None, 'GAEACTIVE': 'Y', 'GAECOMP': None, 'GAEPNUM': None, 'GAEPCDE': None, 'GAEFULLNAME': None, 'GAEHAD3': None, 'GAEHAD2': None, 'GAEHAD1': None, 'GAEHAD4': None, 'GAEFAX': None, 'GAECOLCODE': None, 'GAEFACT': None, 'GAECODE': 33, 'GAETEL': None, 'GAESORT': None, 'GAEACAD': None, 'GAEEDOMAIN': None, 'GAEORIGINS': None, 'GAEADDR1': None, 'GAEADDR2': None, 'GAEADDR3': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:185]:
+r={'GAEAFRNAME': 'FACULTY OF APPLIED SCIENCES', 'GAEOCLEVC': None, 'GAEADFSEQ': 50, 'GAENAME': 'FACULTY OF APPLIED SCIENCES', 'GAEPCODE': None, 'GAEFULLNAMEA': None, 'GAEACTIVE': 'Y', 'GAECOMP': None, 'GAEPNUM': None, 'GAEPCDE': None, 'GAEFULLNAME': None, 'GAEHAD3': None, 'GAEHAD2': None, 'GAEHAD1': None, 'GAEHAD4': None, 'GAEFAX': None, 'GAECOLCODE': None, 'GAEFACT': None, 'GAECODE': 34, 'GAETEL': None, 'GAESORT': None, 'GAEACAD': None, 'GAEEDOMAIN': None, 'GAEORIGINS': None, 'GAEADDR1': None, 'GAEADDR2': None, 'GAEADDR3': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:185]:
+r={'GAEAFRNAME': 'FACULTY OF ENG & THE BUILT ENV', 'GAEOCLEVC': None, 'GAEADFSEQ': 51, 'GAENAME': 'FACULTY OF ENG & THE BUILT ENV', 'GAEPCODE': None, 'GAEFULLNAMEA': None, 'GAEACTIVE': 'Y', 'GAECOMP': None, 'GAEPNUM': None, 'GAEPCDE': None, 'GAEFULLNAME': None, 'GAEHAD3': None, 'GAEHAD2': None, 'GAEHAD1': None, 'GAEHAD4': None, 'GAEFAX': None, 'GAECOLCODE': None, 'GAEFACT': None, 'GAECODE': 35, 'GAETEL': None, 'GAESORT': None, 'GAEACAD': None, 'GAEEDOMAIN': None, 'GAEORIGINS': None, 'GAEADDR1': None, 'GAEADDR2': None, 'GAEADDR3': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:185]:
+r={'GAEAFRNAME': 'FACULTY OF HEALTH SCIENCES', 'GAEOCLEVC': None, 'GAEADFSEQ': 52, 'GAENAME': 'FACULTY OF HEALTH SCIENCES', 'GAEPCODE': None, 'GAEFULLNAMEA': None, 'GAEACTIVE': 'Y', 'GAECOMP': None, 'GAEPNUM': None, 'GAEPCDE': None, 'GAEFULLNAME': None, 'GAEHAD3': None, 'GAEHAD2': None, 'GAEHAD1': None, 'GAEHAD4': None, 'GAEFAX': None, 'GAECOLCODE': None, 'GAEFACT': None, 'GAECODE': 36, 'GAETEL': None, 'GAESORT': None, 'GAEACAD': None, 'GAEEDOMAIN': None, 'GAEORIGINS': None, 'GAEADDR1': None, 'GAEADDR2': None, 'GAEADDR3': None}
+--------------------------------------------------------------------------------
+127.0.0.1 - - [02/Jul/2018 09:22:31] "POST /main HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:22:31] "OPTIONS /main HTTP/1.1" 200 -
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:194]:
+getFacultyDisciplnesId{"action": "getFacultyDisciplinesId", "token": "65349d87-1b52-48f8-a29c-b40220b36d12", "facultyCode": "31"}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:107]:
+get db conn from pool
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:149]:
+select * from GEN.GACDPT where GACFACT=:1
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:155]:
+query returns...
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:118]:
+columns=['GACCODE', 'GACNAME', 'GACFACT', 'GACPASS', 'GACVATREG', 'GACCAMP', 'GACACTIVE', 'GACGLCC', 'GACMINWRS', 'GACFTE', 'GACREM801', 'GACREM802', 'GACREM803', 'GACREM804', 'GACBUDWHT', 'GACALTDNAME', 'GACYR1', 'GACYR2', 'GACYR3', 'GACOCLEVC', 'GACSORT', 'GACFULLNAME', 'GACFULLNAMEA', 'GACLECT', 'GACDEPTID', 'GACORIGINS', 'GACADFSEQ']
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:127]:
+DbQuery returned 8 rows
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:158]:
+response wrapped
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:202]:
+r={'GACSORT': None, 'GACREM801': None, 'GACOCLEVC': None, 'GACNAME': 'FACULTY OFFICE-ARTS & DESIGN', 'GACYR2': None, 'GACYR3': None, 'GACLECT': None, 'GACFULLNAMEA': None, 'GACCODE': 3100, 'GACMINWRS': None, 'GACCAMP': None, 'GACGLCC': None, 'GACFULLNAME': None, 'GACACTIVE': 'Y', 'GACYR1': None, 'GACREM804': None, 'GACREM802': None, 'GACREM803': None, 'GACPASS': None, 'GACDEPTID': None, 'GACALTDNAME': None, 'GACVATREG': None, 'GACFACT': 31, 'GACFTE': None, 'GACORIGINS': None, 'GACADFSEQ': 753, 'GACBUDWHT': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:202]:
+r={'GACSORT': None, 'GACREM801': None, 'GACOCLEVC': None, 'GACNAME': 'VIDEO TECHNOLOGY', 'GACYR2': None, 'GACYR3': None, 'GACLECT': None, 'GACFULLNAMEA': None, 'GACCODE': 3101, 'GACMINWRS': None, 'GACCAMP': None, 'GACGLCC': None, 'GACFULLNAME': None, 'GACACTIVE': 'Y', 'GACYR1': None, 'GACREM804': None, 'GACREM802': None, 'GACREM803': None, 'GACPASS': None, 'GACDEPTID': None, 'GACALTDNAME': None, 'GACVATREG': None, 'GACFACT': 31, 'GACFTE': None, 'GACORIGINS': None, 'GACADFSEQ': 702, 'GACBUDWHT': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:202]:
+r={'GACSORT': None, 'GACREM801': None, 'GACOCLEVC': None, 'GACNAME': 'SCHOOL OF EDUCATION', 'GACYR2': None, 'GACYR3': None, 'GACLECT': None, 'GACFULLNAMEA': None, 'GACCODE': 3102, 'GACMINWRS': None, 'GACCAMP': None, 'GACGLCC': None, 'GACFULLNAME': None, 'GACACTIVE': 'Y', 'GACYR1': None, 'GACREM804': None, 'GACREM802': None, 'GACREM803': None, 'GACPASS': None, 'GACDEPTID': None, 'GACALTDNAME': None, 'GACVATREG': None, 'GACFACT': 31, 'GACFTE': None, 'GACORIGINS': None, 'GACADFSEQ': 703, 'GACBUDWHT': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:202]:
+r={'GACSORT': None, 'GACREM801': None, 'GACOCLEVC': None, 'GACNAME': 'FINE ART & JEWELLERY DESIGN', 'GACYR2': None, 'GACYR3': None, 'GACLECT': None, 'GACFULLNAMEA': None, 'GACCODE': 3103, 'GACMINWRS': None, 'GACCAMP': None, 'GACGLCC': None, 'GACFULLNAME': None, 'GACACTIVE': 'Y', 'GACYR1': None, 'GACREM804': None, 'GACREM802': None, 'GACREM803': None, 'GACPASS': None, 'GACDEPTID': None, 'GACALTDNAME': None, 'GACVATREG': None, 'GACFACT': 31, 'GACFTE': None, 'GACORIGINS': None, 'GACADFSEQ': 704, 'GACBUDWHT': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:202]:
+r={'GACSORT': None, 'GACREM801': None, 'GACOCLEVC': None, 'GACNAME': 'MEDIA LANG & COMMUNICATION', 'GACYR2': None, 'GACYR3': None, 'GACLECT': None, 'GACFULLNAMEA': None, 'GACCODE': 3104, 'GACMINWRS': None, 'GACCAMP': None, 'GACGLCC': None, 'GACFULLNAME': None, 'GACACTIVE': 'Y', 'GACYR1': None, 'GACREM804': None, 'GACREM802': None, 'GACREM803': None, 'GACPASS': None, 'GACDEPTID': None, 'GACALTDNAME': None, 'GACVATREG': None, 'GACFACT': 31, 'GACFTE': None, 'GACORIGINS': None, 'GACADFSEQ': 705, 'GACBUDWHT': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:202]:
+r={'GACSORT': None, 'GACREM801': None, 'GACOCLEVC': None, 'GACNAME': 'VISUAL COMMUNICATION DESIGN', 'GACYR2': None, 'GACYR3': None, 'GACLECT': None, 'GACFULLNAMEA': None, 'GACCODE': 3105, 'GACMINWRS': None, 'GACCAMP': None, 'GACGLCC': None, 'GACFULLNAME': None, 'GACACTIVE': 'Y', 'GACYR1': None, 'GACREM804': None, 'GACREM802': None, 'GACREM803': None, 'GACPASS': None, 'GACDEPTID': None, 'GACALTDNAME': None, 'GACVATREG': None, 'GACFACT': 31, 'GACFTE': None, 'GACORIGINS': None, 'GACADFSEQ': 706, 'GACBUDWHT': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:202]:
+r={'GACSORT': None, 'GACREM801': None, 'GACOCLEVC': None, 'GACNAME': 'FASHION & TEXTILES', 'GACYR2': None, 'GACYR3': None, 'GACLECT': None, 'GACFULLNAMEA': None, 'GACCODE': 3106, 'GACMINWRS': None, 'GACCAMP': None, 'GACGLCC': None, 'GACFULLNAME': None, 'GACACTIVE': 'Y', 'GACYR1': None, 'GACREM804': None, 'GACREM802': None, 'GACREM803': None, 'GACPASS': None, 'GACDEPTID': None, 'GACALTDNAME': None, 'GACVATREG': None, 'GACFACT': 31, 'GACFTE': None, 'GACORIGINS': None, 'GACADFSEQ': 707, 'GACBUDWHT': None}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:202]:
+r={'GACSORT': None, 'GACREM801': None, 'GACOCLEVC': None, 'GACNAME': 'DRAMA AND PROD STUDIES', 'GACYR2': None, 'GACYR3': None, 'GACLECT': None, 'GACFULLNAMEA': None, 'GACCODE': 3108, 'GACMINWRS': None, 'GACCAMP': None, 'GACGLCC': None, 'GACFULLNAME': None, 'GACACTIVE': 'Y', 'GACYR1': None, 'GACREM804': None, 'GACREM802': None, 'GACREM803': None, 'GACPASS': None, 'GACDEPTID': None, 'GACALTDNAME': None, 'GACVATREG': None, 'GACFACT': 31, 'GACFTE': None, 'GACORIGINS': None, 'GACADFSEQ': 776, 'GACBUDWHT': None}
+--------------------------------------------------------------------------------
+127.0.0.1 - - [02/Jul/2018 09:22:32] "POST /main HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:22:32] "OPTIONS /main HTTP/1.1" 200 -
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:209]:
+getDisciplineProgrammesId{"action": "getDisciplineProgrammesId", "token": "65349d87-1b52-48f8-a29c-b40220b36d12", "year": 2017, "disciplineCode": "3100"}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:107]:
+get db conn from pool
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:149]:
+select * from STUD.IAIQAL where IAIDEPT=:1 and IAICYR=:2
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:155]:
+query returns...
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:118]:
+columns=['IAIQUAL', 'IAIAPPQUAL', 'IAIFAC', 'IAIDESC', 'IAIACTIVE', 'IAIROW102', 'IAIROW212', 'IAIFODATE', 'IAIINDATE', 'IAIAFR', 'IAIFCURR', 'IAIWRS', 'IAIMULTIROW', 'IAIPER', 'IAIMINCRED', 'IAISAPSE', 'IAIMAXCRED', 'IAIEMPMAN', 'IAIDEPT', 'IAIEXAMGROUP', 'IAICYR', 'IAILOWAGE', 'IAIINS', 'IAICONVINS', 'IAIMINMAJ', 'IAIGENCODE', 'IAIMINWRS', 'IAICHKQA', 'IAIMINOM', 'IAICRLOAD', 'IAIFULLDESC', 'IAIDAY', 'IAIMONTH', 'IAIADDTOYEAR', 'IAIHIGHAGE', 'IAIACCTYP', 'IAIHOOD', 'IAIREMARKS', 'IAILASTUPD', 'IAISENATEN', 'IAIFULLNAME', 'IAIFULLNAMEA', 'IAIFUNDC', 'IAINCREDT', 'IAIFOLC', 'IAIBESTWRS', 'IAISTYPE', 'IAINUMSUBTYPE', 'IAIADDCRED', 'IAIMINCREDUN', 'IAINXTMODDATE', 'IAIOWNERSHIP', 'IAISKILS', 'IAIGPA', 'IAIAPPROVED', 'IAICHEIND', 'IAIQARN', 'IAIPROFDEV', 'IAIREVIEWSTAT', 'IAIREVPDATES', 'IAIIND', 'IAIEXSTATREP', 'IAIALLOWOTC', 'IAIINDCODE', 'IAIELIGCO', 'IAIWTMINWRS', 'IAIUPD', 'IAINUMSTYPE', 'IAIREFREM', 'IAIMAXAMT', 'IAIMNCRED', 'IAIMXCRED', 'IAIALLOWOTCO', 'IAIULTEMP', 'IAIFQTA', 'IAIUSEFLD', 'IAIQUALINV', 'IAIRMINCRED', 'IAIRMAXCRED', 'IAIORIGINS', 'IAIFPMAGE', 'IAIIEQDESC', 'IAIPOSTGTYPE', 'IAIQCE', 'IAIQSLP', 'IAITOKEN', 'IAIPRTMAJ', 'IAIPRTTCOMP', 'IAIMINSELSCORE', 'IAIMINSELPERC', 'IAIADFSEQ']
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:127]:
+DbQuery returned 6 rows
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:158]:
+response wrapped
+--------------------------------------------------------------------------------
+127.0.0.1 - - [02/Jul/2018 09:22:33] "POST /main HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:22:33] "OPTIONS /main HTTP/1.1" 200 -
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:227]:
+getProgrammeStudents{"action": "getProgrammeStudents", "programmeCode": "undefined", "token": "65349d87-1b52-48f8-a29c-b40220b36d12", "session": 0, "year": 2017}
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:107]:
+get db conn from pool
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:149]:
+select IAGSTNO,IADSURN,IADNAMES 
+            from STUD.IAGENR, STUD.IADBIO
+            where IAGSTNO=IADSTNO
+            and IAGQUAL=:1
+            and IAGCYR=:2
+            and IAGBC in ('11')
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:155]:
+query returns...
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:118]:
+columns=['IAGSTNO', 'IADSURN', 'IADNAMES']
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:127]:
+DbQuery returned 0 rows
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:158]:
+response wrapped
+--------------------------------------------------------------------------------
+127.0.0.1 - - [02/Jul/2018 09:22:34] "POST /main HTTP/1.1" 200 -
+127.0.0.1 - - [02/Jul/2018 09:22:34] "OPTIONS /main HTTP/1.1" 200 -
+--------------------------------------------------------------------------------
+INFO in asApi [asApi.py:257]:
+getStudentProgrammeRegistrations{"action": "getStudentProgrammeRegistrations", "studentList": [], "token": "65349d87-1b52-48f8-a29c-b40220b36d12"}
+--------------------------------------------------------------------------------
+127.0.0.1 - - [02/Jul/2018 09:22:34] "POST /main HTTP/1.1" 200 -
+ * Detected change in '/home/soren/stuff/api/autoscholar/0.2/asApi.py', reloading
+Starting...
+{u'action': u'login', u'pwd': u'secret', u'userId': u'aUser', u'token': False}
+<type 'dict'>
+<asSessions.aSession instance at 0x7f3304f11680>
+/main, data= {u'action': u'getInstitutionId', u'token': u'7532a0a6-7f68-4b19-9507-21469c062561'}
+Action= getInstitutionId
+/main, data= {u'action': u'getCollegeId', u'token': u'7532a0a6-7f68-4b19-9507-21469c062561'}
+Action= getCollegeId
+/main, data= {u'action': u'getCollegeFacultiesId', u'token': u'7532a0a6-7f68-4b19-9507-21469c062561', u'collegeCode': u'ACAD'}
+Action= getCollegeFacultiesId
+getConn...
+create new db pool connection
+allocated new conn 1
+freeConn...
+/main, data= {u'action': u'getFacultyDisciplinesId', u'token': u'7532a0a6-7f68-4b19-9507-21469c062561', u'facultyCode': u'31'}
+Action= getFacultyDisciplinesId
+getConn...
+execute with plist= (u'31',)
+freeConn...
+/main, data= {u'action': u'getDisciplineProgrammesId', u'token': u'7532a0a6-7f68-4b19-9507-21469c062561', u'year': 2017, u'disciplineCode': u'3100'}
+Action= getDisciplineProgrammesId
+getConn...
+execute with plist= (u'3100', '2018')
+freeConn...
+/main, data= {u'action': u'getProgrammeStudents', u'programmeCode': u'undefined', u'token': u'7532a0a6-7f68-4b19-9507-21469c062561', u'session': 0, u'year': 2017}
+Action= getProgrammeStudents
+getConn...
+execute with plist= (u'undefined', 2017)
+freeConn...
+/main, data= {u'action': u'getStudentProgrammeRegistrations', u'studentList': [], u'token': u'7532a0a6-7f68-4b19-9507-21469c062561'}
+Action= getStudentProgrammeRegistrations
+{u'action': u'login', u'pwd': u'secret', u'userId': u'aUser', u'token': False}
+<type 'dict'>
+<asSessions.aSession instance at 0x7f3304eb8dd0>
+/main, data= {u'action': u'getInstitutionId', u'token': u'65349d87-1b52-48f8-a29c-b40220b36d12'}
+Action= getInstitutionId
+/main, data= {u'action': u'getCollegeId', u'token': u'65349d87-1b52-48f8-a29c-b40220b36d12'}
+Action= getCollegeId
+/main, data= {u'action': u'getCollegeFacultiesId', u'token': u'65349d87-1b52-48f8-a29c-b40220b36d12', u'collegeCode': u'ACAD'}
+Action= getCollegeFacultiesId
+getConn...
+freeConn...
+/main, data= {u'action': u'getFacultyDisciplinesId', u'token': u'65349d87-1b52-48f8-a29c-b40220b36d12', u'facultyCode': u'31'}
+Action= getFacultyDisciplinesId
+getConn...
+execute with plist= (u'31',)
+freeConn...
+/main, data= {u'action': u'getDisciplineProgrammesId', u'token': u'65349d87-1b52-48f8-a29c-b40220b36d12', u'year': 2017, u'disciplineCode': u'3100'}
+Action= getDisciplineProgrammesId
+getConn...
+execute with plist= (u'3100', '2018')
+freeConn...
+/main, data= {u'action': u'getProgrammeStudents', u'programmeCode': u'undefined', u'token': u'65349d87-1b52-48f8-a29c-b40220b36d12', u'session': 0, u'year': 2017}
+Action= getProgrammeStudents
+getConn...
+execute with plist= (u'undefined', 2017)
+freeConn...
+/main, data= {u'action': u'getStudentProgrammeRegistrations', u'studentList': [], u'token': u'65349d87-1b52-48f8-a29c-b40220b36d12'}
+Action= getStudentProgrammeRegistrations
+closeAllConns
+...close
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 295-264-781

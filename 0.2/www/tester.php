@@ -51,7 +51,7 @@
                    
                    $.ajax({
                         type: "POST",
-                        url: "/api/ascholar/0.2/login",
+                        url: "/api/ascholar/0.2/login2",
                         dataType: 'json',
                         contentType: 'application/json',
                         async: false,

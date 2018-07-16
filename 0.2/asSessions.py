@@ -10,10 +10,12 @@ class aSession:
         self.created_at = time.time()
         self.last_check = self.created_at
         self.access_count = 1
+        self.membertype = 0
+        self.ldapres = None
         
     def asString(self):
         return ",".join([self.token,self.username,str(self.created_at),\
-                str(self.last_check),str(self.access_count)])
+                str(self.last_check),str(self.access_count),str(self.ldapres)])
     
 
 class asSessions:
@@ -44,4 +46,37 @@ class asSessions:
     def getSessions(self):
         return self.session_map
 
-            
+import ldap
+import sys
+import traceback
+
+class authSessions(asSessions):
+    def setLogger(self,logger):
+        self.logger = logger
+        
+    def loginSession(self,username,passwd):
+        self.logger.info("loginSession(%s,%s)" % (username,passwd))
+        ldap_server="ldap://127.0.0.1:3389"
+        username = username.lower()
+        if "dut.ac.za" in username:
+            base_dn="OU=Users,OU=DUT Resources,DC=dut,DC=ac,DC=za"
+            mtype = 4
+        elif "dut4life.ac.za" in username:
+            base_dn="OU=DUT External Resources,DC=dut,DC=ac,DC=za"
+            mtype = 0
+        try:
+            ldap_client=ldap.initialize(ldap_server)
+            rc = ldap_client.simple_bind_s(username,passwd)
+            self.logger.info("simple_bind_s, rc="+str(rc))
+            filter = "mail=%s" % (username)
+            rs = ldap_client.search_s(base_dn,ldap.SCOPE_SUBTREE,filter,None)
+            self.logger.info("rs="+str(rs))
+            newssn =  self.newSession(username)            
+            newssn.ldapres = rs[0]
+            newssn.membertype = mtype
+            return newssn
+        except:
+            (xtype,xvalue,xtback) = sys.exc_info()
+            tbfmt = traceback.format_exception(xtype,xvalue,xtback)
+            self.logger.info("exception"+"\n...".join(tbfmt))
+            return None

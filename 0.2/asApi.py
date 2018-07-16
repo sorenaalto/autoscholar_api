@@ -10,12 +10,15 @@ import string
 import cx_Oracle
 from dbpool import dbPool
 from asSessions import asSessions
+from asSessions import authSessions
 
 import sys
 import atexit
 import traceback
 
 import pprint
+
+import uuid
 
 pp = pprint.PrettyPrinter(indent=4)
 
@@ -43,6 +46,8 @@ atexit.register(closePoolConns)
 #
 # manage sessions / auth
 sessions = asSessions()
+logsessions = authSessions()
+logsessions.setLogger(app.logger)
 
 @app.route('/')
 def info():
@@ -59,6 +64,58 @@ def login():
                 "userId":ssn.username,\
                 "created":ssn.created_at})
 
+#
+# backdoor accounts for testing
+backdoor_accounts = {
+    "aLecturer" : {
+        "userId" : "aLecturer",
+        "pwd" : "IamLecturer",
+        "mtype": 4
+    },
+    "aStudent" : {
+        "userId" : "aStudent",
+        "pwd" : "IamStudent",
+        "mtype": 0
+    }
+}
+
+@app.route('/login2',methods=['POST'])
+def login2():
+    app.logger.info("login2")
+    if request.method == 'POST':
+        app.logger.info("request.method==POST")
+        data = request.get_json()
+        print data
+        print type(data)
+        #
+        # backdoor
+        userId = data['userId']
+        passwd = data['pwd']
+        if userId in backdoor_accounts:
+            acct_info = backdoor_accounts[userId]
+            if passwd == acct_info["pwd"]:
+                ssn = sessions.newSession(userId)
+                ssn.memberType = acct_info["mtype"]
+                return json.dumps({"status":1,"logToken":ssn.token,\
+                    "memberType":ssn.memberType,\
+                    "userId":ssn.username,\
+                    "created":ssn.created_at})
+            else:    
+                return json.dumps({"status":0,"msg":"invalid login"})
+                
+        ssn = logsessions.loginSession(data['userId'],data['pwd'])
+        if ssn == None:
+            return json.dumps({"status":0,"msg":"invalid login"})
+        else:
+            #
+            # try and get staff or student number
+            
+            return json.dumps({"status":1,"logToken":ssn.token,\
+                "memberType":ssn.memberType,\
+                "userId":ssn.username,\
+                "created":ssn.created_at})
+
+
 @app.route('/dumpsessions')
 def dumpSessions():
     smap = sessions.getSessions()
@@ -67,6 +124,17 @@ def dumpSessions():
         ssn = smap[k]
         ssnlist[k] = ssn.asString()
     return json.dumps({ "responseStatus":1,"sessions":ssnlist})
+
+@app.route('/dumpsessions2')
+def dumpSessions2():
+    smap = logsessions.getSessions()
+    ssnlist = {}
+    for k in smap:
+        ssn = smap[k]
+        ssnlist[k] = ssn.asString()
+    return json.dumps({ "responseStatus":1,"sessions":ssnlist})
+
+
 
 @app.route('/session',methods=['POST'])
 def dumpMySession():
@@ -161,10 +229,10 @@ def doQuery(qs,plist=None):
 	except:
 	    app.logger.info("caught db exception...")
 	    app.logger.info(str(sys.exc_info()))
-	    raise DBQueryError("dbQuery exception")
+	    dbpool.freeConn(db)
+	    raise DBQueryError("dbquery exception"+str(sys.exc_info()))
+	    
 
-
-        
 def getInstitutionId(data):
     return {'institution':{'institutionCode':'ZA-DUT','institutionLabel':'Durban University of Technology'}}
 
@@ -175,7 +243,7 @@ def getCollegeId(data):
             ]}
 
 def getCollegeFacultiesId(data):
-    app.logger.info("getCollegeFacultiesId"+json.dumps(data))
+#    app.logger.info("getCollegeFacultiesId"+json.dumps(data))
     code = data['collegeCode']
     if code in ['ACAD']:
         qs = "select * from GEN.GAEFAC where GAECODE in ('31','32','33','34','35','36')"
@@ -191,7 +259,7 @@ def getCollegeFacultiesId(data):
         raise RequestParameterError("collegeCode %s is not known" % (code,))
 
 def getFacultyDisciplinesId(data):
-    app.logger.info("getFacultyDisciplnesId"+json.dumps(data))
+#    app.logger.info("getFacultyDisciplnesId"+json.dumps(data))
     code = data['facultyCode']
     qs = "select * from GEN.GACDPT where GACFACT=:1"
     rs = doQuery(qs,(code,))
@@ -206,7 +274,7 @@ def getFacultyDisciplinesId(data):
     return rsp
 
 def getDisciplineProgrammesId(data):
-    app.logger.info("getDisciplineProgrammesId"+json.dumps(data))
+#    app.logger.info("getDisciplineProgrammesId"+json.dumps(data))
     code = data['disciplineCode']
     aYear = '2018'
     qs = "select * from STUD.IAIQAL where IAIDEPT=:1 and IAICYR=:2"
@@ -215,7 +283,7 @@ def getDisciplineProgrammesId(data):
 #    rs = doQuery(qs)
     rlist = []
     for r in rs:
-        app.logger.info("r="+str(r))
+#        app.logger.info("r="+str(r))
         rr = {'programmeCode':r['IAIQUAL'],'programmeLabel':r['IAIDESC'],
                 'majorCode':-1,'majorLabel':-1
         }
@@ -224,15 +292,15 @@ def getDisciplineProgrammesId(data):
     return rsp
 
 def getProgrammeStudents(data):
-    app.logger.info("getProgrammeStudents"+json.dumps(data))
+#    app.logger.info("getProgrammeStudents"+json.dumps(data))
     programmeCode = data['programmeCode']
     year = data['year']
     session = data['session']
     #
     # map to IAGBC
-    if session == '0':
+    if str(session) == '0':
         bclist = "('11','21')" # check for ET / PG blocks
-    if session == '1':
+    if str(session) == '1':
         bclist = "('11','22')"
     else:
         bclist = "('11')"
@@ -246,7 +314,7 @@ def getProgrammeStudents(data):
     rs = doQuery(qs,(programmeCode,year))
     rlist = []
     for r in rs:
-        app.logger.info("r="+str(r))
+#        app.logger.info("r="+str(r))
         rr = {'studentNumber':r['IAGSTNO'],'majorCode':-1,\
                 'lastName':r['IADSURN'],'firstNames':r['IADNAMES']}
         rlist.append(rr)
@@ -254,8 +322,10 @@ def getProgrammeStudents(data):
     return rsp
     
 def getStudentProgrammeRegistrations(data):
-    app.logger.info("getStudentProgrammeRegistrations"+json.dumps(data))
+#    app.logger.info("getStudentProgrammeRegistrations"+json.dumps(data))
     studentList = data['studentList']
+    if len(studentList)<1:
+        raise RequestParameterError("studentList must not be empty")
     #
     # TODO: will need paged queries for long lists
     slistS = ",".join([str(x) for x in studentList])
@@ -265,7 +335,7 @@ def getStudentProgrammeRegistrations(data):
     rs = doQuery(qs)
     rlist = []
     for r in rs:
-        app.logger.info("r="+str(r))
+#        app.logger.info("r="+str(r))
         bc = r['IAGBC']
         if bc in ['11','21']:
             session = 0
@@ -279,8 +349,10 @@ def getStudentProgrammeRegistrations(data):
     return rsp
     
 def getStudentFinalCourseResults(data):
-    app.logger.info("getStudentFinalCourseResults"+json.dumps(data))
+#    app.logger.info("getStudentFinalCourseResults"+json.dumps(data))
     studentList = data['studentList']
+    if len(studentList)<1:
+        raise RequestParameterError("studentList must not be empty")
     #
     # TODO: will need paged queries for long lists
     slistS = ",".join([str(x) for x in studentList])
@@ -297,7 +369,60 @@ def getStudentFinalCourseResults(data):
     rs = doQuery(qs)
     rlist = []
     for r in rs:
-        app.logger.info("r="+str(r))
+#        app.logger.info("r="+str(r))
+        bc = r['IAHBC']
+        if bc in ['11','21']:
+            session = 0
+        if bc in ['22']:
+            session = 1
+        else:
+            session = 0
+        rcode = r['IAHERES']  #TODO -- fix mapping of result code
+        rr = {'studentNumber':r['IAHSTNO'],'year':r['IAHCYR'],'session':session,\
+                'courseCode':r['IAHSUBJ'],'courseCredits':r['SAPSECREDIT'],'programmeCode':r['IAHQUAL'],\
+                'result':r['IAHFMARK'],'resultCode':rcode}
+        rlist.append(rr)
+    rsp = {'finalResults':rlist}
+    return rsp
+    
+def squote(x):
+    return "'%s'" % (x,)
+
+def getStudentSessionResults(data):
+#    app.logger.info("getStudentFinalCourseResults"+json.dumps(data))
+    studentList = data['studentList']
+    if len(studentList)<1:
+        raise RequestParameterError("studentList must not be empty")
+    #
+    # TODO: will need paged queries for long lists
+    slistS = ",".join([str(x) for x in studentList])
+    qyear = data['year']
+    session = data['session']
+    
+    # check these lists -- and refactor into a utility function
+    if session == 0:
+        bclist = ['11','21']
+    else:
+        bclist = ['22']
+
+    bclistS = ",".join([squote(x) for x in bclist])
+
+    qs = """select IAHSTNO,IAHCYR,IAHBC,IAHSUBJ,IAHQUAL,IAHFMARK,IAHERES 
+            from STUD.IAHSUB
+            where IAHSTNO in (%s)
+            order by IAHSTNO,IAHCYR,IAHBC,IAHSUBJ""" % slistS
+            
+    qs = """select IAHSTNO,IAHCYR,IAHBC,IAHSUBJ,IAHQUAL,IAHFMARK,IAHERES,IAKCREDIT*128 as SAPSECREDIT
+            from STUD.IAHSUB,STUD.IAKSUB
+            where IAHCYR=IAKCYR and IAHSUBJ=IAKSUBJ and IAHQUAL=IAKQUAL and IAHOT=IAKOT
+            and IAHSTNO in (%s)
+            and IAHCYR=%s
+            and IAHBC in (%s)
+            order by IAHSTNO,IAHCYR,IAHBC,IAHSUBJ""" % (slistS,qyear,bclistS)
+    rs = doQuery(qs)
+    rlist = []
+    for r in rs:
+#        app.logger.info("r="+str(r))
         bc = r['IAHBC']
         if bc in ['11','21']:
             session = 0
@@ -313,10 +438,15 @@ def getStudentFinalCourseResults(data):
     rsp = {'finalResults':rlist}
     return rsp
 
+
 def getStudentFinalCourseResultsMulti(data):
-    app.logger.info("getStudentFinalCourseResultsMulti"+json.dumps(data))
+#    app.logger.info("getStudentFinalCourseResultsMulti"+json.dumps(data))
     courseList = data['courseList']
     yearList = data['yearList']
+    if len(courseList)<1:
+        raise RequestParameterError("courseList must not be empty")
+    if len(yearList)<1:
+        raise RequestParameterError("yearList must not be empty")
     #
     # TODO: will need paged queries for long lists
     clistS = ",".join(["'%s'" % (str(x),) for x in courseList])
@@ -350,8 +480,11 @@ def getStudentFinalCourseResultsMulti(data):
 
     
 def getAssessmentResults(data):
-    app.logger.info("getAssessmentResults"+json.dumps(data))
+#    app.logger.info("getAssessmentResults"+json.dumps(data))
     studentList = data['studentList']
+    if len(studentList)<1:
+        raise RequestParameterError("studentList must not be empty")
+
     #
     # TODO: will need paged queries for long lists
     slistS = ",".join([str(x) for x in studentList])
@@ -379,9 +512,13 @@ def getAssessmentResults(data):
     return rsp
 
 def getAssessmentResultsMulti(data):
-    app.logger.info("getAssessmentResultsMulti"+json.dumps(data))
+#    app.logger.info("getAssessmentResultsMulti"+json.dumps(data))
     courseList = data['courseList']
     yearList = data['yearList']
+    if len(courseList)<1:
+        raise RequestParameterError("courseList must not be empty")
+    if len(yearList)<1:
+        raise RequestParameterError("yearList must not be empty")
     #
     # TODO: will need paged queries for long lists
     clistS = ",".join(["'%s'" % (str(x),) for x in courseList])
@@ -413,8 +550,11 @@ def getAssessmentResultsMulti(data):
 
 
 def getStudentBioData(data):
-    app.logger.info("getStudentBioData"+json.dumps(data))
+#    app.logger.info("getStudentBioData"+json.dumps(data))
     studentList = data['studentList']
+    if len(studentList)<1:
+        raise RequestParameterError("studentList must not be empty")
+
     #
     # TODO: will need paged queries for long lists
     slistS = ",".join([str(x) for x in studentList])
@@ -445,6 +585,7 @@ def getStudentBioData(data):
 
 @app.route('/main',methods=['POST'])
 def apiMain():
+    g.reqid = str(uuid.uuid4())
     non_auth_requests = {
         'getInstitutionId' : getInstitutionId,
         'getCollegeFacultiesId' : getCollegeFacultiesId,
@@ -454,6 +595,7 @@ def apiMain():
         'getStudentProgrammeRegistrations':getStudentProgrammeRegistrations,
         'getStudentFinalCourseResults':getStudentFinalCourseResults,
         'getStudentFinalCourseResultsMulti':getStudentFinalCourseResultsMulti,
+        'getStudentSessionResults':getStudentSessionResults,
         'getAssessmentResults':getAssessmentResults,
         'getAssessmentResultsMulti':getAssessmentResultsMulti,
         'getStudentBioData':getStudentBioData
@@ -464,7 +606,12 @@ def apiMain():
     }
 
     try:
+        xff = request.headers.get("X-Forwarded-for")
+        app.logger.info("/main: X-Forwarded-for "+xff)
         data = request.get_json()
+        if data == None:
+            raise NoSuchAction('Empty JSON request body')
+        app.logger.info("/main: "+json.dumps(data))
         print "/main, data=",data
         action = data['action']
         print "Action=",action
@@ -482,20 +629,24 @@ def apiMain():
         # clean up and return
         rsp['responseStatus'] = 1
         rsp['action'] = action
+        rsp['reqId'] = g.reqid
         return json.dumps(rsp)
     except NotLoggedInError as x:
         errmsg = x.value
-        return json.dumps({'responseStatus':0,'msg':errmsg})
+        return json.dumps({'responseStatus':0,'reqId':g.reqid,'msg':errmsg})
     except NoSuchAction as x:
         errmsg = x.value
-        return json.dumps({'responseStatus':0,'msg':errmsg})
+        return json.dumps({'responseStatus':0,'reqId':g.reqid,'msg':errmsg})
+    except RequestParameterError as x:
+        errmsg = x.value
+        return json.dumps({'responseStatus':0,'reqId':g.reqid,'msg':errmsg})
     except KeyError as x:
         errmsg = "missing property "+x.message
-        return json.dumps({'responseStatus':0,'msg':errmsg})
+        return json.dumps({'responseStatus':0,'reqId':g.reqid,'msg':errmsg})
     except:
         traceback.print_exc()
         errmsg = str(sys.exc_info())
-        return json.dumps({'responseStatus':0,'msg':errmsg})
+        return json.dumps({'responseStatus':0,'reqId':g.reqid,'msg':errmsg})
 
 if __name__ == "__main__":
 	app.run(debug=True,host=os.getenv('IP','0.0.0.0'),port=int(os.getenv('PORT',8100)))
